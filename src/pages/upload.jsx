@@ -1,10 +1,10 @@
-import { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useState } from "react";
+import { useSelector } from "react-redux";
 
 function useFileHandler(allowedTypes, maxSizeMB) {
   const [file, setFile] = useState(null);
   const [error, setError] = useState("");
-  const theme = useSelector(state => state.theme.themeMode);  // Accessing theme from Redux store
+  const theme = useSelector((state) => state.theme.themeMode); // Accessing theme from Redux store
 
   const handleFileChange = (event) => {
     const file = event.target.files[0];
@@ -18,15 +18,19 @@ function useFileHandler(allowedTypes, maxSizeMB) {
         console.log("File ready for upload:", file);
       } else {
         setFile(null);
-        setError(`Please upload a valid file type and ensure the size is less than ${maxSizeMB} MB.`);
+        setError(
+          `Please upload a valid file type and ensure the size is less than ${maxSizeMB} MB.`
+        );
         alertStyle(theme);
       }
     }
   };
 
   const alertStyle = (theme) => {
-    const alertColor = theme === 'dark' ? '#d9534f' : '#f8d7da';  // Colors depending on the theme
-    window.alert(`File size should be less than ${maxSizeMB} MB.`, { style: { background: alertColor } });
+    const alertColor = theme === "dark" ? "#d9534f" : "#f8d7da"; // Colors depending on the theme
+    window.alert(`File size should be less than ${maxSizeMB} MB.`, {
+      style: { background: alertColor },
+    });
   };
 
   return {
@@ -37,7 +41,6 @@ function useFileHandler(allowedTypes, maxSizeMB) {
 }
 
 export default function Upload() {
-  const photoHandler = useFileHandler(["image/jpeg", "image/png"], 5);
   const docFrontHandler = useFileHandler(
     ["image/jpeg", "image/png", "application/pdf"],
     5
@@ -78,7 +81,7 @@ export default function Upload() {
             <p>Upload a clear image of the front side of your document.</p>
           </div>
           <div>
-          <div className="uploader doc-upload">
+            <div className="uploader doc-upload">
               <div className="upload-wrapper py-5 ms-auto">
                 <input
                   type="file"
@@ -91,7 +94,15 @@ export default function Upload() {
                   <div className="upload-icon">
                     <i className="ri-upload-2-line"></i>
                   </div>
-                  <p>{docFrontHandler.file ? `File: ${docFrontHandler.file.name}` : "JPG, JPEG, PNG and PDF formats. Max file size: 5MB"}</p>
+                  <p
+                    style={{
+                      color: docFrontHandler.file ? "white" : "",
+                    }}
+                  >
+                    {docFrontHandler.file
+                      ? `File: ${docFrontHandler.file.name}`
+                      : "JPG, JPEG, PNG and PDF formats. Max file size: 5MB"}
+                  </p>
                 </div>
               </div>
             </div>
@@ -116,7 +127,15 @@ export default function Upload() {
                   <div className="upload-icon">
                     <i className="ri-upload-2-line"></i>
                   </div>
-                  <p>{docBackHandler.file ? `File: ${docBackHandler.file.name}` : "JPG, JPEG, PNG and PDF formats. Max file size: 5MB"}</p>
+                  <p
+                    style={{
+                      color: docBackHandler.file ? "white" : "",
+                    }}
+                  >
+                    {docBackHandler.file
+                      ? `File: ${docBackHandler.file.name}`
+                      : "JPG, JPEG, PNG and PDF formats. Max file size: 5MB"}
+                  </p>
                 </div>
               </div>
             </div>
