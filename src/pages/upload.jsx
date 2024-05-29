@@ -1,5 +1,7 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom"; // This is for redirecting
+import "../assets/css/popup.css";
 
 function useFileHandler(allowedTypes, maxSizeMB) {
   const [file, setFile] = useState(null);
@@ -41,6 +43,11 @@ function useFileHandler(allowedTypes, maxSizeMB) {
 }
 
 export default function Upload() {
+  const [showPopup, setShowPopup] = useState(false);
+  const [blur, setBlur] = useState(false);
+  const [bodyBgColor, setBodyBgColor] = useState("");
+  const navigate = useNavigate();
+
   const docFrontHandler = useFileHandler(
     ["image/jpeg", "image/png", "application/pdf"],
     5
@@ -49,6 +56,24 @@ export default function Upload() {
     ["image/jpeg", "image/png", "application/pdf"],
     5
   );
+
+  useEffect(() => {
+    const bgColor = window.getComputedStyle(document.body).backgroundColor;
+    setBodyBgColor(bgColor);
+  }, []);
+
+  const handleSubmit = async () => {
+    // setBlur(false);
+    // You need to replace the below with your actual API call
+    // await uploadFiles(docFrontHandler.file, docBackHandler.file);
+    setShowPopup(true);
+  };
+
+  const handleClosePopup = () => {
+    setShowPopup(false);
+    setBlur(false);
+    navigate("/upload"); // Redirect to upload page or wherever appropriate
+  };
 
   return (
     <div className="upload-doc">
@@ -141,9 +166,87 @@ export default function Upload() {
             </div>
           </div>
         </div>
-        <div className="d-flex justify-content-between align-item-center py-5">
-          <button className="secondary-btn">Reset</button>
-          <button className="primary-btn">Submit</button>
+        <div
+          className="upload-doc"
+          style={{ filter: blur ? "blur(4px)" : "none" }}
+        >
+          <div className="d-flex justify-content-between align-item-center py-5">
+            <button className="secondary-btn">Reset</button>
+            <button className="primary-btn" onClick={handleSubmit}>
+              Submit
+            </button>
+          </div>
+          {showPopup && (
+            <div
+              className="popup-overlay"
+              style={{
+                position: "fixed",
+                top: 0,
+                left: 0,
+                width: "100%",
+                height: "100%",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                backgroundColor: "rgba(0, 0, 0, 0.5)", // Semi-transparent overlay
+              }}
+            >
+              <div
+                className="popup"
+                style={{
+                  padding: "20px",
+                  minWidth: "300px",
+                  background: bodyBgColor,
+                  borderRadius: "10px",
+                  boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "flex-start", // Aligns items to the left
+                }}
+              >
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "flex-start",
+                    marginBottom: "10px", // Adds spacing between this section and the paragraph below
+                  }}
+                >
+                  <i
+                    className="ri-check-line"
+                    style={{
+                      fontSize: "15px", // Larger icon for better visibility
+                      color: "black", // White icon color for contrast
+                      padding: "5px",
+                      borderRadius: "50%",
+                      backgroundColor: "purple",
+                      marginRight: "10px", // Space between icon and text
+                    }}
+                  ></i>
+                  <h5>Thank you!</h5>
+                </div>
+                <p style={{ margin: 0, width: "100%", color: "gray" }}>
+                  Your submission has been sent.
+                </p>
+                <button
+                  className="primary-btn"
+                  onClick={handleClosePopup}
+                  style={{
+                    marginTop: "20px",
+                    alignSelf: "flex-start",
+                    backgroundColor: "purple", // Match the button to the theme
+                    color: "white",
+                    border: "none",
+                    padding: "10px 20px",
+                    borderRadius: "5px",
+                    cursor: "pointer",
+                  }}
+                >
+                  Okay
+                </button>
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </div>
