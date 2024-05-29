@@ -12,7 +12,7 @@ const routes = [
   {
     name: "Login",
     path: "/",
-    component: <Login />,
+    component: <Upload />, // revert this back to <Login />
     type: "public",
   },
   {
