@@ -1,0 +1,100 @@
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
+
+  .modal-top-left-boundary {
+    position: absolute;
+    top: calc(35% - 125px);
+    left: calc(40% - 100px);
+    width: 81px;
+    height: 81px;
+    border-top: 5px solid #ffffff;
+    border-left: 5px solid #ffffff;
+    border-top-left-radius: 10px;
+  }
+
+  .modal-top-right-boundary{
+    position: absolute;
+    top: calc(35% - 125px);
+    left: calc(50% + 70px);
+    width: 81px;
+    height: 81px;
+    border-top: 5px solid #ffffff;
+    border-right: 5px solid #ffffff;
+    border-top-right-radius: 10px;
+  }
+
+  .modal-bottom-left-boundary{
+    position:absolute;
+    top: calc(50% + 125px - 30px);
+    left: calc(40% - 100px);
+    width: 81px;
+    height: 81px;
+    border-bottom: 5px solid #ffffff;
+    border-left: 5px solid #ffffff;
+    border-bottom-left-radius: 10px;
+  }
+
+  .modal-bottom-right-boundary{
+    position: absolute;
+    top: calc(50% + 125px - 30px);
+    left: calc(50% + 70px);
+    width: 81px;
+    height: 81px;
+    border-bottom: 5px solid #ffffff;
+    border-right: 5px solid #ffffff;
+    border-bottom-right-radius: 10px;
+  }
+
+  .modal-button-top-left-boundary{
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    width: 15px;
+    height: 15px;
+    border-top: 3px solid #ffffff;
+    border-left: 3px solid #ffffff;
+    border-top-left-radius: 5px;
+  }
+
+  .modal-button-top-right-boundary{
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 15px;
+    height: 15px;
+    border-top: 3px solid #ffffff;
+    border-right: 3px solid #ffffff;
+    border-top-right-radius: 5px;
+  }
+
+  .modal-button-bottum-left-boundary{
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    width: 15px;
+    height: 15px;
+    border-bottom: 3px solid #ffffff;
+    border-left: 3px solid #ffffff;
+    border-bottom-left-radius: 5px;
+  }
+
+  .modal-button-bottom-right-boundary{
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    width: 15px;
+    height: 15px;
+    border-bottom: 3px solid #ffffff;
+    border-right: 3px solid #ffffff;
+    border-bottom-right-radius: 5px;
+  }

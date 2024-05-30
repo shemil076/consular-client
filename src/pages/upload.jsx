@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom"; // This is for redirecting
 import "../assets/css/popup.css";
+import WebcamCapture from "./WebcamCapture";
 
 function useFileHandler(allowedTypes, maxSizeMB) {
   const [file, setFile] = useState(null);
@@ -47,6 +48,12 @@ export default function Upload() {
   const [blur, setBlur] = useState(false);
   const [bodyBgColor, setBodyBgColor] = useState("");
   const navigate = useNavigate();
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [capturedImage, setCapturedImage] = useState(null);
+
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
 
   const docFrontHandler = useFileHandler(
     ["image/jpeg", "image/png", "application/pdf"],
@@ -84,20 +91,53 @@ export default function Upload() {
             <p>Capture a clear photo of yourself for identity verification.</p>
           </div>
           <div>
-            <div className="uploader photo-upload">
-              <div className="upload-wrapper ms-auto">
-                <input type="file" name="photo" draggable />
-                <div>
-                  <div className="upload-icon">
+            {capturedImage ? (
+              <div
+                className="uploader photo-upload"
+                style={{ position: "relative" }}
+              >
+                <img
+                    className="uploader photo-upload upload-wrapper "
+                    src={capturedImage}
+                    alt="Captured"
+                    style={{ transform: "scaleX(-1)", padding: 0 }}
+                  />
+                <div  className=" upload-icon"
+                  style={{
+                    position: "absolute",
+                    bottom: 0,
+                    right: 0,
+                    padding: "10px",
+                  }}
+                >
+                  <div className=" upload-icon">
                     <i className="ri-crosshair-2-line"></i>
                   </div>
-                  <p>
-                    Previously taken photos or uploads are not supported in this
-                    step.
-                  </p>
                 </div>
               </div>
-            </div>
+            ) : (
+              <div className="uploader photo-upload" onClick={openModal}>
+                <div className="upload-wrapper ms-auto">
+                  {isModalOpen && (
+                    <WebcamCapture
+                      isModalOpen={isModalOpen}
+                      closeCamModal={setIsModalOpen}
+                      setCapturedImage={setCapturedImage}
+                    />
+                  )}
+
+                  <div>
+                    <div className="upload-icon">
+                      <i className="ri-crosshair-2-line"></i>
+                    </div>
+                    <p>
+                      Previously taken photos or uploads are not supported in
+                      this step.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
         </div>
         <div className="d-flex justify-content-between custom-border-bottom py-5">
