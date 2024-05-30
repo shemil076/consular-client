@@ -177,70 +177,21 @@ export default function Upload() {
             </button>
           </div>
           {showPopup && (
-            <div
-              className="popup-overlay"
-              style={{
-                position: "fixed",
-                top: 0,
-                left: 0,
-                width: "100%",
-                height: "100%",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                backgroundColor: "rgba(0, 0, 0, 0.5)", // Semi-transparent overlay
-              }}
-            >
+            <div className="popup-overlay">
               <div
                 className="popup"
                 style={{
-                  padding: "20px",
-                  minWidth: "300px",
                   background: bodyBgColor,
-                  borderRadius: "10px",
-                  boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "flex-start", // Aligns items to the left
                 }}
               >
-                <div
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "flex-start",
-                    marginBottom: "10px", // Adds spacing between this section and the paragraph below
-                  }}
-                >
-                  <i
-                    className="ri-check-line"
-                    style={{
-                      fontSize: "15px", // Larger icon for better visibility
-                      color: "black", // White icon color for contrast
-                      padding: "5px",
-                      borderRadius: "50%",
-                      backgroundColor: "purple",
-                      marginRight: "10px", // Space between icon and text
-                    }}
-                  ></i>
+                <div className="popup-header">
+                  <i className="ri-check-line popup-icon"></i>
                   <h5>Thank you!</h5>
                 </div>
-                <p style={{ margin: 0, width: "100%", color: "gray" }}>
-                  Your submission has been sent.
-                </p>
+                <p className="popup-message">Your submission has been sent.</p>
                 <button
-                  className="primary-btn"
+                  className="primary-btn popup-button"
                   onClick={handleClosePopup}
-                  style={{
-                    marginTop: "20px",
-                    alignSelf: "flex-start",
-                    backgroundColor: "purple", // Match the button to the theme
-                    color: "white",
-                    border: "none",
-                    padding: "10px 20px",
-                    borderRadius: "5px",
-                    cursor: "pointer",
-                  }}
                 >
                   Okay
                 </button>
