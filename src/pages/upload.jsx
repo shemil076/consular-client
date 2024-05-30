@@ -84,7 +84,7 @@ export default function Upload() {
 
   return (
     <div className="upload-doc">
-      <div className="px-5 mx-5">
+      <div class="px-auto mx-auto">
         <div className="d-flex justify-content-between custom-border-bottom py-5">
           <div>
             <h5>Live Photo</h5>
@@ -97,12 +97,13 @@ export default function Upload() {
                 style={{ position: "relative" }}
               >
                 <img
-                    className="uploader photo-upload upload-wrapper "
-                    src={capturedImage}
-                    alt="Captured"
-                    style={{ transform: "scaleX(-1)", padding: 0 }}
-                  />
-                <div  className=" upload-icon"
+                  className="uploader photo-upload upload-wrapper "
+                  src={capturedImage}
+                  alt="Captured"
+                  style={{ transform: "scaleX(-1)", padding: 0 }}
+                />
+                <div
+                  className=" upload-icon"
                   style={{
                     position: "absolute",
                     bottom: 0,
@@ -211,7 +212,12 @@ export default function Upload() {
           style={{ filter: blur ? "blur(4px)" : "none" }}
         >
           <div className="d-flex justify-content-between align-item-center py-5">
-            <button className="secondary-btn">Reset</button>
+            <button
+              className="secondary-btn"
+              onClick={() => navigate("/upload")}
+            >
+              Reset
+            </button>
             <button className="primary-btn" onClick={handleSubmit}>
               Submit
             </button>

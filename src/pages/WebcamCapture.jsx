@@ -1,5 +1,5 @@
 import React, { useRef, useState, useEffect } from "react";
-import Modal from "./Modal";
+import Modal from "./../assets/css/CameraModal.css";
 
 const WebcamCapture = ({ isModalOpen, closeCamModal, setCapturedImage }) => {
   const videoRef = useRef(null);
