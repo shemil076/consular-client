@@ -52,6 +52,7 @@ export default function Upload() {
   const [capturedImage, setCapturedImage] = useState(null);
 
   const openModal = () => {
+    capturedImage && setCapturedImage(null);
     setIsModalOpen(true);
   };
 
@@ -96,22 +97,24 @@ export default function Upload() {
                 className="uploader photo-upload"
                 style={{ position: "relative" }}
               >
-                <img
-                  className="uploader photo-upload upload-wrapper "
-                  src={capturedImage}
-                  alt="Captured"
-                  style={{ transform: "scaleX(-1)", padding: 0 }}
-                />
-                <div
-                  className=" upload-icon"
-                  style={{
-                    position: "absolute",
-                    bottom: 0,
-                    right: 0,
-                    padding: "10px",
-                  }}
-                >
-                  <div className=" upload-icon">
+                <div className="upload-wrapper">
+                  <img
+                    className="upload-wrapper"
+                    src={capturedImage}
+                    alt="Captured"
+                    style={{ position: "absolute", left:"0%",transform: "scaleX(-1)", padding: 0 }}
+                  />
+                  <div
+                    className="upload-icon"
+                    style={{
+                      position: "absolute",
+                      bottom: 0,
+                      right: 0,
+                      marginRight: "5%",
+                      cursor: 'pointer'
+                    }}
+                    onClick={openModal}
+                  >
                     <i className="ri-crosshair-2-line"></i>
                   </div>
                 </div>

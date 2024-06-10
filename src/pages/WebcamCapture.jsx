@@ -198,12 +198,15 @@ return (
               top: 0,
               right: 0,
               margin: "10px",
-              padding: "5px 10px",
+            //   padding: "5px 5px",
               background: "rgba(255,255,255,0.2)",
               border: "1px solid #ccc",
               borderRadius: "100%",
               cursor: "pointer",
               color: "white",
+              width: "30px",
+            height: "30px",
+            // fontSize:"20px"
             }}
             onClick={() => closeModal()}
           >
@@ -227,8 +230,8 @@ return (
                 borderRadius: "100%",
                 cursor: "pointer",
                 color: "white",
-                width: "65px",
-                height: "65px",
+                width: "75px",
+                height: "75px",
                 display: "flex",
                 justifyContent: "center",
                 alignItems: "center",
