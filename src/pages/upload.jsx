@@ -85,7 +85,7 @@ export default function Upload() {
   }, []);
 
   const handleSubmit = async () => {
-    // setBlur(false);
+    setBlur(true);
     // You need to replace the below with your actual API call
     // await uploadFiles(docFrontHandler.file, docBackHandler.file);
     setShowPopup(true);
@@ -99,7 +99,10 @@ export default function Upload() {
 
   return (
     <div className="upload-doc">
-      <div class="px-auto mx-auto">
+      <div
+        class="px-auto mx-auto"
+        style={{ filter: blur ? "blur(12px)" : "none" }}
+      >
         <div className="d-flex justify-content-between custom-border-bottom py-5">
           <div>
             <h5>Live Photo</h5>
@@ -265,45 +268,37 @@ export default function Upload() {
             </div>
           </div>
         </div>
-        <div
-          className="upload-doc"
-          style={{ filter: blur ? "blur(4px)" : "none" }}
-        >
-          <div className="d-flex justify-content-between align-item-center py-5">
-            <button
-              className="secondary-btn"
-              onClick={() => navigate("/upload")}
-            >
-              Reset
-            </button>
-            <button className="primary-btn" onClick={handleSubmit}>
-              Submit
-            </button>
-          </div>
-          {showPopup && (
-            <div className="popup-overlay">
-              <div
-                className="popup"
-                style={{
-                  background: bodyBgColor,
-                }}
-              >
-                <div className="popup-header">
-                  <i className="ri-check-line popup-icon"></i>
-                  <h5>Thank you!</h5>
-                </div>
-                <p className="popup-message">Your submission has been sent.</p>
-                <button
-                  className="primary-btn popup-button"
-                  onClick={handleClosePopup}
-                >
-                  Okay
-                </button>
-              </div>
-            </div>
-          )}
+        <div className="d-flex justify-content-between align-item-center py-5">
+          <button className="secondary-btn" onClick={() => navigate("/upload")}>
+            Reset
+          </button>
+          <button className="primary-btn" onClick={handleSubmit}>
+            Submit
+          </button>
         </div>
       </div>
+      {showPopup && (
+        <div className="popup-overlay">
+          <div
+            className="popup"
+            style={{
+              background: bodyBgColor,
+            }}
+          >
+            <div className="popup-header">
+              <i className="ri-check-line popup-icon"></i>
+              <h5>Thank you!</h5>
+            </div>
+            <p className="popup-message">Your submission has been sent.</p>
+            <button
+              className="primary-btn popup-button"
+              onClick={handleClosePopup}
+            >
+              Okay
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
