@@ -4,6 +4,15 @@ import { useNavigate } from "react-router-dom"; // This is for redirecting
 import "../assets/css/popup.css";
 import WebcamCapture from "./WebcamCapture";
 
+// SVG placeholder - replace these with actual SVGs or components
+const PdfIcon = () => (
+  <i
+    className="ri-file-pdf-2-line"
+    style={{ fontSize: "40px", color: "white" }}
+  ></i>
+);
+const ReuploadIcon = () => <i className="ri-refresh-line"></i>;
+
 function useFileHandler(allowedTypes, maxSizeMB) {
   const [file, setFile] = useState(null);
   const [error, setError] = useState("");
@@ -102,7 +111,12 @@ export default function Upload() {
                     className="upload-wrapper"
                     src={capturedImage}
                     alt="Captured"
-                    style={{ position: "absolute", left:"0%",transform: "scaleX(-1)", padding: 0 }}
+                    style={{
+                      position: "absolute",
+                      left: "0%",
+                      transform: "scaleX(-1)",
+                      padding: 0,
+                    }}
                   />
                   <div
                     className="upload-icon"
@@ -111,7 +125,7 @@ export default function Upload() {
                       bottom: 0,
                       right: 0,
                       marginRight: "5%",
-                      cursor: 'pointer'
+                      cursor: "pointer",
                     }}
                     onClick={openModal}
                   >
@@ -160,18 +174,36 @@ export default function Upload() {
                   accept="image/jpeg, image/png, application/pdf"
                 />
                 <div>
-                  <div className="upload-icon">
-                    <i className="ri-upload-2-line"></i>
-                  </div>
-                  <p
-                    style={{
-                      color: docFrontHandler.file ? "white" : "",
-                    }}
-                  >
-                    {docFrontHandler.file
-                      ? `File: ${docFrontHandler.file.name}`
-                      : "JPG, JPEG, PNG and PDF formats. Max file size: 5MB"}
-                  </p>
+                  {docFrontHandler.file && (
+                    <div
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "space-between",
+                      }}
+                    >
+                      {docFrontHandler.file.type === "application/pdf" && (
+                        <PdfIcon />
+                      )}
+                      <p
+                        style={{ color: "white" }}
+                      >{`File: ${docFrontHandler.file.name}`}</p>
+                      <div
+                        onClick={() => docFrontHandler.handleFileChange(null)}
+                        style={{ cursor: "pointer" }}
+                      >
+                        <ReuploadIcon />
+                      </div>
+                    </div>
+                  )}
+                  {!docFrontHandler.file && (
+                    <div>
+                      <div className="upload-icon">
+                        <i className="ri-upload-2-line"></i>
+                      </div>
+                      <p>JPG, JPEG, PNG, and PDF formats. Max file size: 5MB</p>
+                    </div>
+                  )}
                 </div>
               </div>
             </div>
@@ -193,18 +225,36 @@ export default function Upload() {
                   accept="image/jpeg, image/png, application/pdf"
                 />
                 <div>
-                  <div className="upload-icon">
-                    <i className="ri-upload-2-line"></i>
-                  </div>
-                  <p
-                    style={{
-                      color: docBackHandler.file ? "white" : "",
-                    }}
-                  >
-                    {docBackHandler.file
-                      ? `File: ${docBackHandler.file.name}`
-                      : "JPG, JPEG, PNG and PDF formats. Max file size: 5MB"}
-                  </p>
+                  {docBackHandler.file && (
+                    <div
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "space-between",
+                      }}
+                    >
+                      {docBackHandler.file.type === "application/pdf" && (
+                        <PdfIcon />
+                      )}
+                      <p
+                        style={{ color: "white" }}
+                      >{`File: ${docBackHandler.file.name}`}</p>
+                      <div
+                        onClick={() => docBackHandler.handleFileChange(null)}
+                        style={{ cursor: "pointer" }}
+                      >
+                        <ReuploadIcon />
+                      </div>
+                    </div>
+                  )}
+                  {!docBackHandler.file && (
+                    <div>
+                      <div className="upload-icon">
+                        <i className="ri-upload-2-line"></i>
+                      </div>
+                      <p>JPG, JPEG, PNG, and PDF formats. Max file size: 5MB</p>
+                    </div>
+                  )}
                 </div>
               </div>
             </div>
