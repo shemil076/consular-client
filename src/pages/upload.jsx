@@ -11,7 +11,12 @@ const PdfIcon = () => (
     style={{ fontSize: "40px", color: "white" }}
   ></i>
 );
-const ReuploadIcon = () => <i className="ri-refresh-line"></i>;
+const ReuploadIcon = () => (
+  <i
+    className="ri-upload-2-line"
+    style={{ fontSize: "20px", color: "white" }}
+  ></i>
+);
 
 function useFileHandler(allowedTypes, maxSizeMB) {
   const [file, setFile] = useState(null);
