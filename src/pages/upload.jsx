@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom"; // This is for redirecting
 import "../assets/css/popup.css";
 import WebcamCapture from "./WebcamCapture";
@@ -21,7 +20,7 @@ const ReuploadIcon = () => (
 function useFileHandler(allowedTypes, maxSizeMB) {
   const [file, setFile] = useState(null);
   const [error, setError] = useState("");
-  const theme = useSelector((state) => state.theme.themeMode); // Accessing theme from Redux store
+  const [sizeError, setSizeError] = useState(false);
 
   const handleFileChange = (event) => {
     const file = event.target.files[0];
@@ -32,27 +31,22 @@ function useFileHandler(allowedTypes, maxSizeMB) {
       ) {
         setFile(file);
         setError("");
+        setSizeError(false);
         console.log("File ready for upload:", file);
       } else {
         setFile(null);
         setError(
           `Please upload a valid file type and ensure the size is less than ${maxSizeMB} MB.`
         );
-        alertStyle(theme);
+        setSizeError(file.size > maxSizeMB * 1024 * 1024);
       }
     }
-  };
-
-  const alertStyle = (theme) => {
-    const alertColor = theme === "dark" ? "#d9534f" : "#f8d7da"; // Colors depending on the theme
-    window.alert(`File size should be less than ${maxSizeMB} MB.`, {
-      style: { background: alertColor },
-    });
   };
 
   return {
     file,
     error,
+    sizeError,
     handleFileChange,
   };
 }
@@ -99,7 +93,9 @@ export default function Upload() {
 
     setErrors(newErrors);
 
-    const isValid = !Object.values(newErrors).includes(true);
+    const isValid = !Object.values(newErrors).includes(true) &&
+                    !docFrontHandler.sizeError &&
+                    !docBackHandler.sizeError;
 
     if (isValid) {
       setBlur(true);
@@ -204,7 +200,12 @@ export default function Upload() {
           <div>
             <div
               className="uploader doc-upload"
-              style={{ border: errors.docFront ? "2px solid red" : "none" }}
+              style={{
+                border:
+                  errors.docFront || docFrontHandler.sizeError
+                    ? "2px solid red"
+                    : "none",
+              }}
             >
               <div className="upload-wrapper py-5 ms-auto">
                 <input
@@ -252,6 +253,9 @@ export default function Upload() {
             {errors.docFront && (
               <p style={{ color: "red" }}>Please enter the file.</p>
             )}
+            {docFrontHandler.sizeError && (
+              <p style={{ color: "red" }}>File size exceeds 5MB.</p>
+            )}
           </div>
         </div>
         <div className="d-flex justify-content-between custom-border-bottom py-5">
@@ -262,7 +266,12 @@ export default function Upload() {
           <div>
             <div
               className="uploader doc-upload"
-              style={{ border: errors.docBack ? "2px solid red" : "none" }}
+              style={{
+                border:
+                  errors.docBack || docBackHandler.sizeError
+                    ? "2px solid red"
+                    : "none",
+              }}
             >
               <div className="upload-wrapper py-5 ms-auto">
                 <input
@@ -309,6 +318,9 @@ export default function Upload() {
             </div>
             {errors.docBack && (
               <p style={{ color: "red" }}>Please enter the file.</p>
+            )}
+            {docBackHandler.sizeError && (
+              <p style={{ color: "red" }}>File size exceeds 5MB.</p>
             )}
           </div>
         </div>
