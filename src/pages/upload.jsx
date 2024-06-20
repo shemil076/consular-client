@@ -61,9 +61,15 @@ export default function Upload() {
   const [showPopup, setShowPopup] = useState(false);
   const [blur, setBlur] = useState(false);
   const [bodyBgColor, setBodyBgColor] = useState("");
-  const navigate = useNavigate();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [capturedImage, setCapturedImage] = useState(null);
+  const [errors, setErrors] = useState({
+    livePhoto: false,
+    docFront: false,
+    docBack: false,
+  });
+
+  const navigate = useNavigate();
 
   const openModal = () => {
     capturedImage && setCapturedImage(null);
@@ -85,10 +91,22 @@ export default function Upload() {
   }, []);
 
   const handleSubmit = async () => {
-    setBlur(true);
-    // You need to replace the below with your actual API call
-    // await uploadFiles(docFrontHandler.file, docBackHandler.file);
-    setShowPopup(true);
+    const newErrors = {
+      livePhoto: !capturedImage,
+      docFront: !docFrontHandler.file,
+      docBack: !docBackHandler.file,
+    };
+
+    setErrors(newErrors);
+
+    const isValid = !Object.values(newErrors).includes(true);
+
+    if (isValid) {
+      setBlur(true);
+      // You need to replace the below with your actual API call
+      // await uploadFiles(docFrontHandler.file, docBackHandler.file);
+      setShowPopup(true);
+    }
   };
 
   const handleClosePopup = () => {
@@ -100,7 +118,7 @@ export default function Upload() {
   return (
     <div className="upload-doc">
       <div
-        class="px-auto mx-auto"
+        className="px-auto mx-auto"
         style={{ filter: blur ? "blur(12px)" : "none" }}
       >
         <div className="d-flex justify-content-between custom-border-bottom py-5">
@@ -112,7 +130,10 @@ export default function Upload() {
             {capturedImage ? (
               <div
                 className="uploader photo-upload"
-                style={{ position: "relative" }}
+                style={{
+                  position: "relative",
+                  border: errors.livePhoto ? "2px solid red" : "none",
+                }}
               >
                 <div className="upload-wrapper">
                   <img
@@ -142,7 +163,13 @@ export default function Upload() {
                 </div>
               </div>
             ) : (
-              <div className="uploader photo-upload" onClick={openModal}>
+              <div
+                className="uploader photo-upload"
+                onClick={openModal}
+                style={{
+                  border: errors.livePhoto ? "2px solid red" : "none",
+                }}
+              >
                 <div className="upload-wrapper ms-auto">
                   {isModalOpen && (
                     <WebcamCapture
@@ -164,6 +191,9 @@ export default function Upload() {
                 </div>
               </div>
             )}
+            {errors.livePhoto && (
+              <p style={{ color: "red" }}>Please enter the file.</p>
+            )}
           </div>
         </div>
         <div className="d-flex justify-content-between custom-border-bottom py-5">
@@ -172,7 +202,10 @@ export default function Upload() {
             <p>Upload a clear image of the front side of your document.</p>
           </div>
           <div>
-            <div className="uploader doc-upload">
+            <div
+              className="uploader doc-upload"
+              style={{ border: errors.docFront ? "2px solid red" : "none" }}
+            >
               <div className="upload-wrapper py-5 ms-auto">
                 <input
                   type="file"
@@ -182,7 +215,7 @@ export default function Upload() {
                   accept="image/jpeg, image/png, application/pdf"
                 />
                 <div>
-                  {docFrontHandler.file && (
+                  {docFrontHandler.file ? (
                     <div
                       style={{
                         display: "flex",
@@ -203,18 +236,22 @@ export default function Upload() {
                         <ReuploadIcon />
                       </div>
                     </div>
-                  )}
-                  {!docFrontHandler.file && (
+                  ) : (
                     <div>
                       <div className="upload-icon">
                         <i className="ri-upload-2-line"></i>
                       </div>
-                      <p>JPG, JPEG, PNG, and PDF formats. Max file size: 5MB</p>
+                      <p>
+                        JPG, JPEG, PNG, and PDF formats. Max file size: 5MB
+                      </p>
                     </div>
                   )}
                 </div>
               </div>
             </div>
+            {errors.docFront && (
+              <p style={{ color: "red" }}>Please enter the file.</p>
+            )}
           </div>
         </div>
         <div className="d-flex justify-content-between custom-border-bottom py-5">
@@ -223,7 +260,10 @@ export default function Upload() {
             <p>Upload a clear image of the back side of your document.</p>
           </div>
           <div>
-            <div className="uploader doc-upload">
+            <div
+              className="uploader doc-upload"
+              style={{ border: errors.docBack ? "2px solid red" : "none" }}
+            >
               <div className="upload-wrapper py-5 ms-auto">
                 <input
                   type="file"
@@ -233,7 +273,7 @@ export default function Upload() {
                   accept="image/jpeg, image/png, application/pdf"
                 />
                 <div>
-                  {docBackHandler.file && (
+                  {docBackHandler.file ? (
                     <div
                       style={{
                         display: "flex",
@@ -254,18 +294,22 @@ export default function Upload() {
                         <ReuploadIcon />
                       </div>
                     </div>
-                  )}
-                  {!docBackHandler.file && (
+                  ) : (
                     <div>
                       <div className="upload-icon">
                         <i className="ri-upload-2-line"></i>
                       </div>
-                      <p>JPG, JPEG, PNG, and PDF formats. Max file size: 5MB</p>
+                      <p>
+                        JPG, JPEG, PNG, and PDF formats. Max file size: 5MB
+                      </p>
                     </div>
                   )}
                 </div>
               </div>
             </div>
+            {errors.docBack && (
+              <p style={{ color: "red" }}>Please enter the file.</p>
+            )}
           </div>
         </div>
         <div className="d-flex justify-content-between align-item-center py-5">
