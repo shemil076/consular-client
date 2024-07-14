@@ -5,16 +5,10 @@ import WebcamCapture from "./WebcamCapture";
 
 // SVG placeholder - replace these with actual SVGs or components
 const PdfIcon = () => (
-  <i
-    className="ri-file-pdf-2-line"
-    style={{ fontSize: "40px", color: "white" }}
-  ></i>
+  <i className="ri-file-pdf-2-line icon-large"></i>
 );
 const ReuploadIcon = () => (
-  <i
-    className="ri-upload-2-line"
-    style={{ fontSize: "20px", color: "white" }}
-  ></i>
+  <i className="ri-upload-2-line icon-small"></i>
 );
 
 function useFileHandler(allowedTypes, maxSizeMB) {
@@ -113,10 +107,7 @@ export default function Upload() {
 
   return (
     <div className="upload-doc">
-      <div
-        className="px-auto mx-auto"
-        style={{ filter: blur ? "blur(12px)" : "none" }}
-      >
+      <div className={`px-auto mx-auto ${blur ? "blur" : ""}`}>
         <div className="d-flex justify-content-between custom-border-bottom py-5">
           <div>
             <h5>Live Photo</h5>
@@ -125,33 +116,15 @@ export default function Upload() {
           <div>
             {capturedImage ? (
               <div
-                className="uploader photo-upload"
-                style={{
-                  position: "relative",
-                  border: errors.livePhoto ? "2px solid red" : "none",
-                }}
+                className={`uploader photo-upload ${errors.livePhoto ? "border-red" : ""}`}
               >
                 <div className="upload-wrapper">
                   <img
-                    className="upload-wrapper"
                     src={capturedImage}
                     alt="Captured"
-                    style={{
-                      position: "absolute",
-                      left: "0%",
-                      transform: "scaleX(-1)",
-                      padding: 0,
-                    }}
                   />
                   <div
                     className="upload-icon"
-                    style={{
-                      position: "absolute",
-                      bottom: 0,
-                      right: 0,
-                      marginRight: "5%",
-                      cursor: "pointer",
-                    }}
                     onClick={openModal}
                   >
                     <i className="ri-crosshair-2-line"></i>
@@ -160,11 +133,8 @@ export default function Upload() {
               </div>
             ) : (
               <div
-                className="uploader photo-upload"
+                className={`uploader photo-upload ${errors.livePhoto ? "border-red" : ""}`}
                 onClick={openModal}
-                style={{
-                  border: errors.livePhoto ? "2px solid red" : "none",
-                }}
               >
                 <div className="upload-wrapper ms-auto">
                   {isModalOpen && (
@@ -174,7 +144,6 @@ export default function Upload() {
                       setCapturedImage={setCapturedImage}
                     />
                   )}
-
                   <div>
                     <div className="upload-icon">
                       <i className="ri-crosshair-2-line"></i>
@@ -199,13 +168,7 @@ export default function Upload() {
           </div>
           <div>
             <div
-              className="uploader doc-upload"
-              style={{
-                border:
-                  errors.docFront || docFrontHandler.sizeError
-                    ? "2px solid red"
-                    : "none",
-              }}
+              className={`uploader doc-upload ${errors.docFront || docFrontHandler.sizeError ? "border-red" : ""}`}
             >
               <div className="upload-wrapper py-5 ms-auto">
                 <input
@@ -232,7 +195,7 @@ export default function Upload() {
                       >{`File: ${docFrontHandler.file.name}`}</p>
                       <div
                         onClick={() => docFrontHandler.handleFileChange(null)}
-                        style={{ cursor: "pointer" }}
+                        className="upload-icon"
                       >
                         <ReuploadIcon />
                       </div>
@@ -265,13 +228,7 @@ export default function Upload() {
           </div>
           <div>
             <div
-              className="uploader doc-upload"
-              style={{
-                border:
-                  errors.docBack || docBackHandler.sizeError
-                    ? "2px solid red"
-                    : "none",
-              }}
+              className={`uploader doc-upload ${errors.docBack || docBackHandler.sizeError ? "border-red" : ""}`}
             >
               <div className="upload-wrapper py-5 ms-auto">
                 <input
@@ -298,7 +255,7 @@ export default function Upload() {
                       >{`File: ${docBackHandler.file.name}`}</p>
                       <div
                         onClick={() => docBackHandler.handleFileChange(null)}
-                        style={{ cursor: "pointer" }}
+                        className="upload-icon"
                       >
                         <ReuploadIcon />
                       </div>
@@ -335,12 +292,7 @@ export default function Upload() {
       </div>
       {showPopup && (
         <div className="popup-overlay">
-          <div
-            className="popup"
-            style={{
-              background: bodyBgColor,
-            }}
-          >
+          <div className="popup" style={{ background: bodyBgColor }}>
             <div className="popup-header">
               <i className="ri-check-line popup-icon"></i>
               <h5>Thank you!</h5>

@@ -52,3 +52,44 @@
   border-radius: 5px;
   cursor: pointer;
 }
+
+.uploader {
+  position: relative;
+}
+
+.upload-wrapper {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.upload-icon {
+  cursor: pointer;
+}
+
+.photo-upload img {
+  position: absolute;
+  left: 0;
+  transform: scaleX(-1);
+  padding: 0;
+}
+
+.border-red {
+  border: 2px solid red;
+}
+
+.blur {
+  filter: blur(12px);
+}
+
+.icon-large {
+  font-size: 40px;
+  color: white;
+}
+
+.icon-small {
+  font-size: 20px;
+  color: white;
+}
