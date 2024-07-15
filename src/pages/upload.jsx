@@ -122,6 +122,7 @@ export default function Upload() {
                   <img
                     src={capturedImage}
                     alt="Captured"
+                    className="captured-image"
                   />
                   <div
                     className="upload-icon"
@@ -157,7 +158,7 @@ export default function Upload() {
               </div>
             )}
             {errors.livePhoto && (
-              <p style={{ color: "red" }}>Please enter the file.</p>
+              <p className="error-text">Please enter the file.</p>
             )}
           </div>
         </div>
@@ -180,19 +181,11 @@ export default function Upload() {
                 />
                 <div>
                   {docFrontHandler.file ? (
-                    <div
-                      style={{
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "space-between",
-                      }}
-                    >
+                    <div className="file-info">
                       {docFrontHandler.file.type === "application/pdf" && (
                         <PdfIcon />
                       )}
-                      <p
-                        style={{ color: "white" }}
-                      >{`File: ${docFrontHandler.file.name}`}</p>
+                      <p className="file-name">{`File: ${docFrontHandler.file.name}`}</p>
                       <div
                         onClick={() => docFrontHandler.handleFileChange(null)}
                         className="upload-icon"
@@ -214,10 +207,10 @@ export default function Upload() {
               </div>
             </div>
             {errors.docFront && (
-              <p style={{ color: "red" }}>Please enter the file.</p>
+              <p className="error-text">Please enter the file.</p>
             )}
             {docFrontHandler.sizeError && (
-              <p style={{ color: "red" }}>File size exceeds 5MB.</p>
+              <p className="error-text">File size exceeds 5MB.</p>
             )}
           </div>
         </div>
@@ -240,19 +233,11 @@ export default function Upload() {
                 />
                 <div>
                   {docBackHandler.file ? (
-                    <div
-                      style={{
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "space-between",
-                      }}
-                    >
+                    <div className="file-info">
                       {docBackHandler.file.type === "application/pdf" && (
                         <PdfIcon />
                       )}
-                      <p
-                        style={{ color: "white" }}
-                      >{`File: ${docBackHandler.file.name}`}</p>
+                      <p className="file-name">{`File: ${docBackHandler.file.name}`}</p>
                       <div
                         onClick={() => docBackHandler.handleFileChange(null)}
                         className="upload-icon"
@@ -274,10 +259,10 @@ export default function Upload() {
               </div>
             </div>
             {errors.docBack && (
-              <p style={{ color: "red" }}>Please enter the file.</p>
+              <p className="error-text">Please enter the file.</p>
             )}
             {docBackHandler.sizeError && (
-              <p style={{ color: "red" }}>File size exceeds 5MB.</p>
+              <p className="error-text">File size exceeds 5MB.</p>
             )}
           </div>
         </div>

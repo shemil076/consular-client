@@ -93,3 +93,11 @@
   font-size: 20px;
   color: white;
 }
+
+.upload-doc .error-text {
+  color: red !important;
+}
+
+.upload-doc .file-info .file-name {
+  color: white !important;
+}
