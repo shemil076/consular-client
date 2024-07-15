@@ -139,13 +139,6 @@
   text-align: center;
 }
 
-.modal-top-left-boundary,
-.modal-top-right-boundary,
-.modal-bottom-left-boundary,
-.modal-bottom-right-boundary {
-  /* Add styles for modal boundaries if necessary */
-}
-
 .close-button {
   position: absolute;
   top: 0;
