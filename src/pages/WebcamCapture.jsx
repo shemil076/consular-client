@@ -1,5 +1,6 @@
 import React, { useRef, useState, useEffect } from "react";
 import Modal from "./../assets/css/cameraModal.css";
+import "./../assets/css/popup.css";
 
 const WebcamCapture = ({ isModalOpen, closeCamModal, setCapturedImage }) => {
   const videoRef = useRef(null);
@@ -64,187 +65,44 @@ const WebcamCapture = ({ isModalOpen, closeCamModal, setCapturedImage }) => {
     }
   }, [needToClose]);
 
-//   return (
-//     <div>
-//       <div className="modal-overlay">
-//         <div style={{ position: "relative" }}>
-//           <div style={{ width: "632px", height: "777px", overflow: "hidden" }}>
-//             <video
-//               ref={videoRef}
-//               autoPlay
-//               style={{
-//                 transform: "scaleX(-1)",
-//                 width: "100%",
-//                 height: "100%",
-//                 objectFit: "cover",
-//               }}
-//             />
-//           </div>
-
-//           <canvas
-//             ref={canvasRef}
-//             width="640"
-//             height="480"
-//             style={{ display: "none" }}
-//           />
-//           <div>
-//             <h4 className="modal-top-text">Position your face in the frame</h4>
-//           </div>
-//           {/* Top-left corner */}
-//           <div className="modal-top-left-boundary" />
-//           {/* Top-right corner */}
-//           <div className="modal-top-right-boundary" />
-//           {/* Bottom-left corner */}
-//           <div className="modal-bottom-left-boundary" />
-//           {/* Bottom-right corner */}
-//           <div className="modal-bottom-right-boundary" />
-
-//           <button
-//             style={{
-//               position: "absolute",
-//               top: 0,
-//               right: 0,
-//               margin: "10px",
-//               padding: "5px 10px",
-//               background: "rgba(255,255,255,0.2)",
-//               border: "1px solid #ccc",
-//               borderRadius: "100%",
-//               cursor: "pointer",
-//               color: "white",
-//             }}
-//             onClick={() => closeModal()}
-//           >
-//             x
-//           </button>
-//           <div
-//             style={{
-//               position: "absolute",
-//               bottom: 0,
-//               width: "100%",
-//               display: "flex",
-//               justifyContent: "center",
-//               padding: "10px",
-//             }}
-//           >
-//             <button
-//               onClick={capturePhoto}
-//               style={{
-//                 padding: "20px 20px",
-//                 background: "#FC5555",
-//                 border: "none",
-//                 borderRadius: "100%",
-//                 cursor: "pointer",
-//                 color: "white",
-//                 position: "relative", // Ensure the frames are positioned relative to the button
-//                 width: "62px", // Adjust width and height as needed
-//                 height: "62px",
-//                 display: "flex",
-//                 justifyContent: "center",
-//                 alignItems: "center",
-//               }}
-//             >
-//               {/* button-top-left corner */}
-//               <div className="modal-button-top-left-boundary"></div>
-//               {/* button-top-right corner */}
-//               <div className="modal-button-top-right-boundary"></div>
-//               {/* button-bottum-left corner */}
-//               <div className="modal-button-bottum-left-boundary"></div>
-//               {/* button-bottum-right corner */}
-//               <div className="modal-button-bottom-right-boundary"></div>
-//             </button>
-//           </div>
-//         </div>
-//       </div>
-//     </div>
-//   );
-return (
+  return (
     <div>
       <div className="modal-overlay">
-        <div style={{ position: "relative" }}>
-          <div style={{ width: "632px", height: "777px", overflow: "hidden" }}>
+        <div className="modal-container">
+          <div className="video-container">
             <video
               ref={videoRef}
               autoPlay
-              style={{
-                transform: "scaleX(-1)",
-                width: "100%",
-                height: "100%",
-                objectFit: "cover",
-              }}
+              className="video-feed"
             />
           </div>
-  
           <canvas
             ref={canvasRef}
             width="640"
             height="480"
-            style={{ display: "none" }}
+            className="hidden-canvas"
           />
           <div>
             <h4 className="modal-top-text">Position your face in the frame</h4>
           </div>
-          {/* Top-left corner */}
           <div className="modal-top-left-boundary" />
-          {/* Top-right corner */}
           <div className="modal-top-right-boundary" />
-          {/* Bottom-left corner */}
           <div className="modal-bottom-left-boundary" />
-          {/* Bottom-right corner */}
           <div className="modal-bottom-right-boundary" />
-  
           <button
-            style={{
-              position: "absolute",
-              top: 0,
-              right: 0,
-              margin: "10px",
-            //   padding: "5px 5px",
-              background: "rgba(255,255,255,0.2)",
-              border: "1px solid #ccc",
-              borderRadius: "100%",
-              cursor: "pointer",
-              color: "white",
-              width: "30px",
-            height: "30px",
-            // fontSize:"20px"
-            }}
+            className="close-button"
             onClick={() => closeModal()}
           >
             x
           </button>
-          <div
-            style={{
-              position: "absolute",
-              bottom: "8%",
-              width: "100%",
-              display: "flex",
-              justifyContent: "center",
-            }}
-          >
+          <div className="button-container">
             <button
               onClick={capturePhoto}
-              style={{
-                padding: "20px 20px",
-                background: "#FC5555",
-                border: "none",
-                borderRadius: "100%",
-                cursor: "pointer",
-                color: "white",
-                width: "75px",
-                height: "75px",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                position: "relative",
-              }}
+              className="capture-button"
             >
-              {/* button-top-left corner */}
               <div className="modal-button-top-left-boundary"></div>
-              {/* button-top-right corner */}
               <div className="modal-button-top-right-boundary"></div>
-              {/* button-bottom-left corner */}
               <div className="modal-button-bottom-left-boundary"></div>
-              {/* button-bottom-right corner */}
               <div className="modal-button-bottom-right-boundary"></div>
             </button>
           </div>
@@ -252,7 +110,6 @@ return (
       </div>
     </div>
   );
-  
 };
 
 export default WebcamCapture;
